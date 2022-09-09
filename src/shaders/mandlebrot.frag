@@ -2,14 +2,16 @@
 precision mediump float;
 out vec4 frag_color;
 
+uniform vec2 viewport;
+
 float map(float value, float min1, float max1, float min2, float max2) {
   return min2 + (value - min1) * (max2 - min2) / (max1 - min1);
 }
 
 void main() {
-  float normalized_coords_x = mix(-0.25,0.25,gl_FragCoord.x);
-  float normalized_coords_y = mix(-0.25,0.25,gl_FragCoord.y);
-  vec2 coords = vec2(normalized_coords_x,normalized_coords_y) / vec2(1280,720);
+  float normalized_coords_x = mix(-0.5,0.5,gl_FragCoord.x);
+  float normalized_coords_y = mix(-0.5,0.5,gl_FragCoord.y);
+  vec2 coords = vec2(normalized_coords_x,normalized_coords_y) / viewport.xy;
   vec2 c;
   c.x = mix(-2.0, 1.0, coords.x);
   c.y = mix(-1.5,1.5,coords.y);

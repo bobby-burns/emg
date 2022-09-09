@@ -17,7 +17,7 @@ const GLuint WIDTH = 1280, HEIGHT = 720;
 
 enum modules cur;
 
-// The MAIN function, from here we start the application and run the game loop
+// The MAIN function, from here we start the application and run the main loop
 int main()
 {
     GLFWwindow* window = createWindow(WIDTH,HEIGHT);
@@ -33,11 +33,15 @@ int main()
     }
     printf("Loaded Version: %s \n",glGetString(GL_VERSION));
 
-    // Define the viewport dimensions
-    //glViewport(0, 0, WIDTH, HEIGHT);
+   
+
     if(cur==MODULE_MANDLEBROT){
         genPrimitive();
     }
+    // set uniforms
+    GLint vloc = glGetUniformLocation(shader.program,"viewport");
+    
+    
 
     // Game loop
     while (!glfwWindowShouldClose(window))
@@ -49,6 +53,14 @@ int main()
         // Clear the colorbuffer
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
+
+         // Define the viewport dimensions
+         // TODO: Extract this
+        int calc_width,calc_height;
+        glfwGetFramebufferSize(window,&calc_width,&calc_height);
+        glViewport(0, 0, calc_width, calc_height);
+        glProgramUniform2f(shader.program,vloc,calc_width,calc_height);
+        
         if(cur==MODULE_MANDLEBROT){
             drawMandleBrot();
         }
