@@ -40,8 +40,12 @@ int main()
     }
     // set uniforms
     GLint vloc = glGetUniformLocation(shader.program,"viewport");
+    GLint mcoords = glGetUniformLocation(shader.program,"mandle_coords");
     
-    
+    float minX = -2.0, maxX = 1.0, minY = -1.5, maxY = 1.5;
+    long double zoomValue = 0.01;
+    minX -= 0.9;
+    maxX -= 0.9;
 
     // Game loop
     while (!glfwWindowShouldClose(window))
@@ -60,6 +64,16 @@ int main()
         glfwGetFramebufferSize(window,&calc_width,&calc_height);
         glViewport(0, 0, calc_width, calc_height);
         glProgramUniform2f(shader.program,vloc,calc_width,calc_height);
+        glProgramUniform4f(shader.program,mcoords,minX,maxX,minY,maxY);
+
+        maxX -= zoomValue;
+        minX += zoomValue;
+        maxY -= zoomValue;
+        minY += zoomValue;
+
+        zoomValue = 0.004 / glfwGetTime();
+        printf("%f \n",0.001 / glfwGetTime());
+
         
         if(cur==MODULE_MANDLEBROT){
             drawMandleBrot();
