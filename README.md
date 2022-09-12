@@ -15,3 +15,7 @@ This project relies on the following libraries:
 * GLFW3
 
 Compile all .c files and link with opengl and glfw (an example makefile is included, this one is meant for Mac with a silicon chip)
+
+## Mandlebrot Example.
+
+<img width="1440" alt="mandlebrot" src="https://user-images.githubusercontent.com/34113650/189699317-23bef73b-81ad-4027-a7b8-bed9d72f674f.png">
