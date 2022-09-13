@@ -11,7 +11,7 @@ The project is setup as *modules*, and more modules are meant to be added on. Cu
 
 ## Building
 This project relies on the following libraries:
-* OpenGL 4.1
+* OpenGL 4.1+ Loaded with GLAD
 * GLFW3
 
 Compile all .c files and link with opengl and glfw (an example makefile is included, this one is meant for Mac with a silicon chip)
