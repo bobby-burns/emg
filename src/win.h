@@ -2,6 +2,10 @@
 #define WIN_H_
 #include <GLFW/glfw3.h>
 
-GLFWwindow* createWindow(int WIDTH, int HEIGHT);  
+extern int mouseX,mouseY;
+extern int v_width,v_height;
+
+GLFWwindow* createWindow(int WIDTH, int HEIGHT);
+void getViewport(); 
 
 #endif 

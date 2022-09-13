@@ -9,8 +9,7 @@
 #include "utils.h"
 
 
-// Function prototypes
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+
 
 // Window dimensions
 const GLuint WIDTH = 1280, HEIGHT = 720;
@@ -19,14 +18,14 @@ enum modules cur;
 
 // The MAIN function, from here we start the application and run the main loop
 int main()
-{
+{   
+    // GLFW Window
     GLFWwindow* window = createWindow(WIDTH,HEIGHT);
     assert(window != NULL);
     cur = MODULE_MANDLEBROT;  
 
-    // Set the required callback functions
-    glfwSetKeyCallback(window, key_callback);
-
+   
+    // Init glad and opengl, make sure we load and link correctly
     if (!gladLoadGLLoader((GLADloadproc) glfwGetProcAddress))
     {
         return -1;
@@ -34,50 +33,34 @@ int main()
     printf("Loaded Version: %s \n",glGetString(GL_VERSION));
 
    
-
+    // Generate the primitve for the mandlebrot, which is a rectangle covering the screen.
     if(cur==MODULE_MANDLEBROT){
         genPrimitive();
     }
-    // set uniforms
-    GLint vloc = glGetUniformLocation(shader.program,"viewport");
-    GLint mcoords = glGetUniformLocation(shader.program,"mandle_coords");
-    
-    float minX = -2.0, maxX = 1.0, minY = -1.5, maxY = 1.5;
-    long double zoomValue = 0.01;
-    minX -= 0.9;
-    maxX -= 0.9;
 
-    // Game loop
+    // First time viewport set
+    getViewport();
+    glViewport(0,0,v_width,v_height);
+    
+    // Main loop
     while (!glfwWindowShouldClose(window))
     {
         // Check if any events have been activated (key pressed, mouse moved etc.) and call corresponding response functions
         glfwPollEvents();
 
-        // Render
         // Clear the colorbuffer
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-         // Define the viewport dimensions
-         // TODO: Extract this
-        int calc_width,calc_height;
-        glfwGetFramebufferSize(window,&calc_width,&calc_height);
-        glViewport(0, 0, calc_width, calc_height);
-        glProgramUniform2f(shader.program,vloc,calc_width,calc_height);
-        glProgramUniform4f(shader.program,mcoords,minX,maxX,minY,maxY);
+        // Update viewport
+        getViewport();
+        glViewport(0,0,v_width,v_height);
 
-        maxX -= zoomValue;
-        minX += zoomValue;
-        maxY -= zoomValue;
-        minY += zoomValue;
 
-        zoomValue = 0.004 / glfwGetTime();
-        printf("%f \n",0.001 / glfwGetTime());
-
-        
-        if(cur==MODULE_MANDLEBROT){
+        if (cur==MODULE_MANDLEBROT){
             drawMandleBrot();
         }
+
 
         // Swap the screen buffers
         glfwSwapBuffers(window);
@@ -88,9 +71,3 @@ int main()
     return 0;
 }
 
-// Is called whenever a key is pressed/released via GLFW
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-{
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, GL_TRUE);
-}
