@@ -6,6 +6,7 @@ extern int mouseX,mouseY;
 extern int v_width,v_height;
 
 GLFWwindow* createWindow(int WIDTH, int HEIGHT);
-void getViewport(); 
+void getViewport();
+void destroyWindow();
 
 #endif 

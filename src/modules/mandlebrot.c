@@ -8,10 +8,10 @@ GLuint vao;
 GLint vloc, mcoords, zoomFactor;
 
 // Center X and Y coordinates of the mandlebrot space. Change these to move around.
-long double X  = -0.745428;
-long double Y  = 0.113009;
+long double X  = -0.748;
+long double Y  = 0.1;
 // Size of the mandlebrot image, smaller number is more zoom.
-long double size = 2e-5;
+long double size = 0.0014;
 
 
 

@@ -10,7 +10,7 @@ void window_size_callback(GLFWwindow* window, int width, int height);
 // Mouse coordinates in screen spact
 int mouseX,mouseY;
 
-GLFWwindow* window;
+GLFWwindow* window; // This is heap allocated 
 
 // Viewport width and height
 int v_width;
@@ -60,4 +60,10 @@ void getViewport(){
 // Update viewport whenver the window is resized
 void window_size_callback(GLFWwindow* window, int width, int height) {
     getViewport();
+}
+
+void destroyWindow(){
+    glfwTerminate();
+    free(window);
+
 }

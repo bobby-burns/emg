@@ -1,7 +1,0 @@
-{
-    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
-    "C_Cpp.errorSquiggles": "Disabled",
-    "files.associations": {
-        "imgui_impl_opengl3.h": "c"
-    }
-}

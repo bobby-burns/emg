@@ -2,7 +2,8 @@
 #define UTILS_H_
 
 enum modules{
-    MODULE_MANDLEBROT
+    MODULE_MANDLEBROT,
+    MODULE_LORENZ
 };
 
 #endif 

@@ -6,6 +6,7 @@
 #include <assert.h>
 #include "win.h"
 #include "modules/mandlebrot.h"
+#include "modules/lorenz.h"
 #include "utils.h"
 
 
@@ -41,6 +42,14 @@ int main()
     // First time viewport set
     getViewport();
     glViewport(0,0,v_width,v_height);
+    double x = 0.1;
+    double y = 0, z = 0;
+
+    for (float i = 0.01; i < 1; i += 0.01){
+        genLorenz(&x,&y,&z,10.0,28.0,8.0/3.0,i);
+        printf("X: %f, Y: %f, Z: %f \n",x,y,z);
+    }
+   
     
     // Main loop
     while (!glfwWindowShouldClose(window))
@@ -66,8 +75,7 @@ int main()
         glfwSwapBuffers(window);
     }
 
-    // Terminates GLFW, clearing any resources allocated by GLFW.
-    glfwTerminate();
+    destroyWindow();
     return 0;
 }
 
